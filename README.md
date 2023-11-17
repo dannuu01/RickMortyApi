@@ -1,6 +1,6 @@
 # RICK AND MORTY API
 
-![datos](../public/captura.png)
+![datos](/public/captura.png)
 
 ## Descripcion
 
