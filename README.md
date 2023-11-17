@@ -47,7 +47,7 @@ Use componentes como :
 
 Entre otros.
 
-Los ![datos](./public/captura.png) mostrados en mi aplicacion, fueron consumidas por un API llamada: [TheRickAndMortyAPI](https://rickandmortyapi.com/documentation)
+Los ![datos](.,/public/captura.png) mostrados en mi aplicacion, fueron consumidas por un API llamada: [TheRickAndMortyAPI](https://rickandmortyapi.com/documentation)
 
 Subire algunas actualizaciones a futuro, para poder abarcar mas conceptos en react.js !!
 
