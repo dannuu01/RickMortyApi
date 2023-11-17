@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "get_schwifty";
+    src: local("get_schwifty"),
+     url("./fonts/get_schwifty.ttf") format("truetype");
+    font-weight: bold;
+}
+
+.title-rickmorty {
+    font-family: "get_schwifty"!important;
+    color: #00b1cf;
+    text-shadow: 1px 6px 5px black;
+    letter-spacing: 1px!important;
+    -webkit-text-stroke: 0.2px #ffff00a1;    
+}
+
+.background { 
+    position: relative; 
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../public/background7.webp');
+    background-size: cover;
+    background-Attachment: 'fixed';
+}
+
+.background::before {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    background-color: #000000c9;
+
+}
+
+.titleShow{
+    position: relative;
+    color: #ffffff;  
+    font-size: 4rem;
+    line-height: 0.9;
+    text-align: center;
+}
