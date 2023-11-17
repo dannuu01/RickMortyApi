@@ -1,5 +1,7 @@
 # RICK AND MORTY API
 
+(.,/public/captura.png)
+
 ## Descripcion
 
 El proyecto esta desarrollado en **React JS**, se implementaron conceptos como:
@@ -47,7 +49,7 @@ Use componentes como :
 
 Entre otros.
 
-Los ![datos](.,/public/captura.png) mostrados en mi aplicacion, fueron consumidas por un API llamada: [TheRickAndMortyAPI](https://rickandmortyapi.com/documentation)
+Los datos mostrados en mi aplicacion, fueron consumidas por un API llamada: [TheRickAndMortyAPI](https://rickandmortyapi.com/documentation)
 
 Subire algunas actualizaciones a futuro, para poder abarcar mas conceptos en react.js !!
 
