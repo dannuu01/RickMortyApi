@@ -9,6 +9,7 @@ import AvatarImg from "../components/AvatarImg";
 
 import CircleLoading from "../components/CircleLoading";
 import Characteristics from "../components/navbar/Characteristics";
+import NotFound from "./NotFound";
 
 export default function CharacterShow() {
   const params = useParams();
@@ -33,11 +34,6 @@ export default function CharacterShow() {
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-  };
-
-  const imageFull = {
-    width: "100%",
-    height: "auto",
   };
 
   useEffect(() => {
@@ -73,15 +69,15 @@ export default function CharacterShow() {
       {loading ? (
         <CircleLoading></CircleLoading>
       ) : error ? (
-        <div>Ocurrió un error al cargar los datos: {error.message}</div>
+        <NotFound></NotFound>
       ) : !data || !data["location"] || !data["location"].name ? (
         <div>No se encontró el nombre de la ubicación</div>
       ) : (
         <Container maxWidth={false} disableGutters className="background">
           <Container sx={{ ...centerToCenter, position: "relative" }}>
-            <Grid container spacing={2} >
-              <Grid item xs={12} >
-                <Box >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Box>
                   <Box sx={{ pb: 2 }}>
                     <AvatarImg data={data}></AvatarImg>
                   </Box>
