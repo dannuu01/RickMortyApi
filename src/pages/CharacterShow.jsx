@@ -10,11 +10,13 @@ import AvatarImg from "../components/AvatarImg";
 import CircleLoading from "../components/CircleLoading";
 import Characteristics from "../components/navbar/Characteristics";
 import NotFound from "./NotFound";
+import EpisodeCharacter from "./EpisodeCharacter";
 
 export default function CharacterShow() {
   const params = useParams();
   const { id } = params;
   const [data, setData] = useState(null);
+  const [episode, setEpisode] = useState([]);
   const { updateTitle } = useContext(NavbarContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,11 +46,12 @@ export default function CharacterShow() {
     try {
       const data = await CharacterInfo(id);
       setData(data);
+      setEpisode(data.episode);
       document.title = `${data.name}`;
       updateTitle(`${data.name}`);
     } catch (error) {
       setError(error);
-      enqueueSnackbar(" Ocurrio un error con la API - Codigo 500!.", {
+      enqueueSnackbar(error, {
         variant: "error",
       });
     } finally {
@@ -63,6 +66,7 @@ export default function CharacterShow() {
       sectionTwo.scrollIntoView({ behavior: "smooth" });
     }
   };
+  
 
   return (
     <>
@@ -89,8 +93,8 @@ export default function CharacterShow() {
                   <Box sx={{ pt: 2 }}>
                     <Characteristics data={data}></Characteristics>
                   </Box>
-                  {/* 
-                  <Box>
+                  
+                  <Box sx={{ textAlign:'center' }}>
                     <a onClick={scrollToSectionTwo}>
                       <KeyboardArrowDownIcon
                         sx={{
@@ -103,10 +107,12 @@ export default function CharacterShow() {
                       />
                     </a>
                   </Box>
-                  */}
+              
                 </Box>
               </Grid>
-              <Grid item xs={12} id="intro"></Grid>
+              <Grid item xs={12} id="intro">
+                 <EpisodeCharacter episode={episode}></EpisodeCharacter>      
+              </Grid>
             </Grid>
           </Container>
         </Container>

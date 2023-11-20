@@ -6,8 +6,8 @@ const fetchDataInfo = async (numPage) => {
     const response = await axios.get('https://rickandmortyapi.com/api/character/?page='+page);
     return response.data;
   } catch (error) {
-    console.error('Error al obtener los datos:', error);
-    throw error;
+    const respuestaObjeto = JSON.parse(error.request.responseText);
+        throw respuestaObjeto.error;
   }
 };
 
