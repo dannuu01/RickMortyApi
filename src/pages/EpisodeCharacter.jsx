@@ -1,60 +1,109 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Episodes from "../api/Episodes";
 import { enqueueSnackbar } from "notistack";
 import ListSubheader from "@mui/material/ListSubheader";
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
-import { NavbarContext } from "../context/NavbarContext";
-import LiveTvIcon from '@mui/icons-material/LiveTv';
 
 export default function EpisodeCharacter({ urlEpisode }) {
-    const [processedData, setProcessedData] = useState([]);
-  
-    const processArray = (array) => {
-      const updatedData = [];
-      array.forEach((element) => {
-        const url = element;
-        const segments = url.split("/").filter((segment) => segment !== "");
-  
-        if (segments.length > 0) {
-          const lastSegment = segments[segments.length - 1];
-          updatedData.push(lastSegment);
-        }
-      });
-      return updatedData;
-    };
-  
-    const getEpisodes = async (result) => {
-      console.log(result);
-      try {
-        const data = await Episodes(result);
-        console.log(data);
-      } catch (error) {
-        enqueueSnackbar(error + " - Codigo 404 !", {
-          variant: "error",
-        });
+  const [processedData, setProcessedData] = useState([]);
+  const [listEpisode, setListEpisode] = useState([]);
+  const [open, setOpen] = useState([]);
+
+  const processArray = (array) => {
+    const updatedData = [];
+    array.forEach((element) => {
+      const url = element;
+      const segments = url.split("/").filter((segment) => segment !== "");
+
+      if (segments.length > 0) {
+        const lastSegment = segments[segments.length - 1];
+        updatedData.push(lastSegment);
       }
-    };
+    });
+    return updatedData;
+  };
+
+  const handleClick = (index) => {
+    setOpen(prevOpen => prevOpen.map((item, idx) => (idx === index ? !item : item)));
+  };
   
-    useEffect(() => {
-      if (Array.isArray(urlEpisode)) {
-        const updatedProcessedData = processArray(urlEpisode);
-        console.log(updatedProcessedData);
-        setProcessedData(updatedProcessedData);
+
+  const updateOpenSize = (newSize) => {
+    setOpen(new Array(newSize).fill(false));
+  };
   
-        getEpisodes(updatedProcessedData); // Llamar getEpisodes cuando procesado
+
+  const getEpisodes = async (result) => {
+    try {
+      const response = await Episodes(result);
+      const isArray = Array.isArray(response);
+      if (isArray) {
+        setListEpisode(response);
       } else {
-        console.error("urlEpisode no es un array válido");
+        setListEpisode([
+          response
+        ]);
       }
-    }, [urlEpisode]);
+      updateOpenSize(response.length);
+      console.log(open);
+    } catch (error) {
+      enqueueSnackbar(error + " - Codigo 404 !", {
+        variant: "error",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (Array.isArray(urlEpisode)) {
+      const updatedProcessedData = processArray(urlEpisode);
+      setProcessedData(updatedProcessedData);
+      getEpisodes(updatedProcessedData); // Llamar getEpisodes cuando procesado
   
-    // ... restante de tu código
-  }
+    } else {
+      console.error("urlEpisode no es un array válido");
+    }
+  }, [urlEpisode]);
+  return (
+    <List
+      sx={{ width: "100%", maxWidth: "auto", bgcolor: "background.paper" }}
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Nested List Items
+        </ListSubheader>
+      }
+    >
+      {listEpisode.map((data, index) => (
+        <Fragment key={index}>
+          <ListItemButton onClick={() => handleClick(index)}>
+            <ListItemIcon>
+              <LiveTvIcon />
+            </ListItemIcon>
+            <ListItemText primary={data.name} secondary={data.air_date} />
+            {open[index] ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open[index]} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary="Starred" />
+              </ListItemButton>
+            </List>
+          </Collapse>
+        </Fragment>
+      ))}
+    </List>
+  );
   
+}
