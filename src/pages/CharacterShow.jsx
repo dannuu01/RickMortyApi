@@ -16,7 +16,7 @@ export default function CharacterShow() {
   const params = useParams();
   const { id } = params;
   const [data, setData] = useState(null);
-  const [episode, setEpisode] = useState([]);
+  const [urlEpisode, setUrlEpisode] = useState([]);
   const { updateTitle } = useContext(NavbarContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,7 +46,7 @@ export default function CharacterShow() {
     try {
       const data = await CharacterInfo(id);
       setData(data);
-      setEpisode(data.episode);
+      setUrlEpisode(data.episode);
       document.title = `${data.name}`;
       updateTitle(`${data.name}`);
     } catch (error) {
@@ -66,7 +66,6 @@ export default function CharacterShow() {
       sectionTwo.scrollIntoView({ behavior: "smooth" });
     }
   };
-  
 
   return (
     <>
@@ -93,8 +92,8 @@ export default function CharacterShow() {
                   <Box sx={{ pt: 2 }}>
                     <Characteristics data={data}></Characteristics>
                   </Box>
-                  
-                  <Box sx={{ textAlign:'center' }}>
+
+                  <Box sx={{ textAlign: "center" }}>
                     <a onClick={scrollToSectionTwo}>
                       <KeyboardArrowDownIcon
                         sx={{
@@ -107,12 +106,13 @@ export default function CharacterShow() {
                       />
                     </a>
                   </Box>
-              
                 </Box>
               </Grid>
-              <Grid item xs={12} id="intro">
-                 <EpisodeCharacter episode={episode}></EpisodeCharacter>      
-              </Grid>
+            </Grid>
+          </Container>
+          <Container>
+            <Grid item xs={12} id="intro" sx={{ pt:4 }}>
+              <EpisodeCharacter urlEpisode={urlEpisode}></EpisodeCharacter>
             </Grid>
           </Container>
         </Container>
