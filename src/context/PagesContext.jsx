@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from 'react';
 
 const PagesContext = createContext();
 
-const PagesProvider = ({ children }) => {
+export const PagesProvider = ({ children }) => {
   const [myPage, setPage] = useState(1);
 
   const updatePages = (item) => {
@@ -16,4 +16,4 @@ const PagesProvider = ({ children }) => {
   );
 };
 
-export { PagesProvider, PagesContext };
+export { PagesContext };

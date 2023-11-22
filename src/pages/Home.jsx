@@ -14,16 +14,15 @@ export default function Home() {
   const { enqueueSnackbar } = useSnackbar();
   const { myCharacters, updateCharacters } = useContext(CharacterContext);
   const { myInfo, updateInfo } = useContext(InfoContext);
-  const { myPage } = useContext(PagesContext);
-  // const [page, setPage] = useState(1);
+  const { myPage, updatePages } = useContext(PagesContext);
   const [valueInput, setValueInput] = useState("");
 
+  
   const getCharacters = async (pageNumber) => {
     try {
       const data = await fetchDataInfo(pageNumber);
       updateCharacters(data.results);
       updateInfo(data.info);
-
       enqueueSnackbar("Petición Aceptada - Codigo 200!.", {
         variant: "success",
       });
@@ -40,7 +39,6 @@ export default function Home() {
       const data = await fetchSearchData(valueInput, myPage);
       updateCharacters(data.results);
       updateInfo(data.info);
-
       enqueueSnackbar("Petición Aceptada - Codigo 200!.", {
         variant: "success",
       });
@@ -53,17 +51,19 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const getData = async (paramPage) => {
-      const pageNumber = paramPage || myPage;
+    const getData = async () => {
+      const pageNumber = myPage || 1;
       if (valueInput.trim() !== "") {
         getCharacterQuery();
       } else {
         getCharacters(pageNumber);
       }
+      window.scrollTo({ top: 0, behavior: "auto" });
     };
 
-    getData(myPage);
-    window.scrollTo({ top: 0, behavior: "auto" });
+    console.log(myPage);
+
+    getData();
   }, [myPage, valueInput]);
 
   return (

@@ -22,7 +22,7 @@ const navArrayLinks = [
     id: 2,
     path: "/character/:id",
     componente: <CharacterShow />,
-  }
+  },
 ];
 
 export default function App() {
@@ -33,7 +33,12 @@ export default function App() {
           <PagesProvider>
             <NavbarProvider>
               <NavBar navArrayLinks={navArrayLinks}> </NavBar>
-              <Container id="ContainerMain" maxWidth={false} disableGutters  sx={{ paddingTop: { xs: "64px", md: '64px'} }}>
+              <Container
+                id="ContainerMain"
+                maxWidth={false}
+                disableGutters
+                sx={{ paddingTop: { xs: "64px", md: "64px" } }}
+              >
                 <Routes>
                   {navArrayLinks.map((ruta) => (
                     <Route
@@ -41,7 +46,6 @@ export default function App() {
                       key={ruta.id}
                       path={ruta.path}
                       element={ruta.componente}
-                     
                     />
                   ))}
                   <Route path="*" element={<NotFound />} />

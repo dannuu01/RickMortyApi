@@ -53,7 +53,6 @@ export default function EpisodeCharacter({ urlEpisode }) {
         ]);
       }
       updateOpenSize(response.length);
-      console.log(open);
     } catch (error) {
       enqueueSnackbar(error + " - Codigo 404 !", {
         variant: "error",
@@ -71,6 +70,7 @@ export default function EpisodeCharacter({ urlEpisode }) {
       console.error("urlEpisode no es un array válido");
     }
   }, [urlEpisode]);
+  
   return (
     <List
       sx={{ width: "100%", maxWidth: "auto", bgcolor: "background.paper" }}
@@ -93,6 +93,12 @@ export default function EpisodeCharacter({ urlEpisode }) {
           </ListItemButton>
           <Collapse in={open[index]} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary="Starred" />
+              </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
                   <StarBorder />

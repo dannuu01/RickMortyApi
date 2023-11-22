@@ -13,6 +13,7 @@ import "aos/dist/aos.css";
 import { useContext, useEffect } from "react";
 import SwitchStatusLive from "./SwitchStatusLive";
 import { CharacterContext } from "../context/CharacterContext";
+import { Link } from 'react-router-dom';
 
 const boxMinStyles = {
   minHeight: {
@@ -51,6 +52,16 @@ export default function Characters() {
     AOS.refreshHard();
   }, []);
 
+  const CustomLinkButton = ({ to, children}) => {
+    return (
+      <Link to={to} style={{ textDecoration: 'none' }}>
+        <Button variant="outlined" size="small">
+          {children}
+        </Button>
+      </Link>
+    );
+  };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -88,14 +99,9 @@ export default function Characters() {
                   <CardActions
                     sx={{ height: "50px", padding: "0px", margin: "0px" }}
                   >
-                    <Button
-                      component="a"
-                      href={`/character/${data.id}`}
-                      variant="outlined"
-                      size="small"
-                    >
-                      Learn More
-                    </Button>
+                  <CustomLinkButton to={`/character/${data.id}`}>
+                    Learn More
+                  </CustomLinkButton>
                   </CardActions>
                 </CardContent>
               </Box>
