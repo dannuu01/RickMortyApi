@@ -37,7 +37,7 @@ export default function App() {
                 id="ContainerMain"
                 maxWidth={false}
                 disableGutters
-                sx={{ paddingTop: { xs: "64px", md: "64px" } }}
+                sx={{ paddingTop: { xs: "50px", md: "64px" } }}
               >
                 <Routes>
                   {navArrayLinks.map((ruta) => (

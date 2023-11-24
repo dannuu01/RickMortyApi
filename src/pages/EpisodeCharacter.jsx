@@ -10,7 +10,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
+import EpisodeAvatars from "../components/EpisodeAvatars";
+
 
 export default function EpisodeCharacter({ urlEpisode }) {
   const [processedData, setProcessedData] = useState([]);
@@ -34,7 +35,6 @@ export default function EpisodeCharacter({ urlEpisode }) {
   const handleClick = (index) => {
     setOpen(prevOpen => prevOpen.map((item, idx) => (idx === index ? !item : item)));
   };
-  
 
   const updateOpenSize = (newSize) => {
     setOpen(new Array(newSize).fill(false));
@@ -91,19 +91,11 @@ export default function EpisodeCharacter({ urlEpisode }) {
             <ListItemText primary={data.name} secondary={data.air_date} />
             {open[index] ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          <Collapse in={open[index]} timeout="auto" unmountOnExit>
+          <Collapse in={open[index]} timeout="auto"  unmountOnExit >
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary="Starred" />
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary="Starred" />
+              <ListItemButton sx={{ pl: 4 }} >
+              <ListItemText primary="Participating characters" />
+              <EpisodeAvatars avatars={data.characters} />
               </ListItemButton>
             </List>
           </Collapse>

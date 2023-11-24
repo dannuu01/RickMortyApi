@@ -1,8 +1,9 @@
+
 import axios from "axios";
 
-const Episodes = async (arrayItems) => {
+const  CharacterMultiple = async (arrayItems)  => {
     try{
-        const response = await axios.get('https://rickandmortyapi.com/api/episode/'+arrayItems);
+        const response = await axios.get('https://rickandmortyapi.com/api/character/'+arrayItems);
         return response.data;
     } catch(error) {
         const respuestaObjeto = JSON.parse(error.request.responseText);
@@ -10,4 +11,4 @@ const Episodes = async (arrayItems) => {
     }
 }
 
-export default Episodes;
+export default CharacterMultiple;
