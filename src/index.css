@@ -22,7 +22,7 @@
     justify-content: center;
     background-image: url('../public/background7.webp');
     background-size: cover;
-    background-Attachment: 'fixed';
+    background-Attachment: fixed;
 }
 
 .background::before {

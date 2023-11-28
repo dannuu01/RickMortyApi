@@ -1,54 +1,22 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
-import StarBorder from "@mui/icons-material/StarBorder";
+import { useEffect, useState } from "react";
 import { Avatar, AvatarGroup } from "@mui/material";
-import CharacterMultiple from "../api/CharacterMultiple";
-import { enqueueSnackbar } from "notistack";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
-export default function EpisodeAvatars({ avatars }) {
-  const [processedData, setProcessedData] = useState([avatars[0]]);
-
-  const processArray = (array) => {
-    const updatedData = [];
-    array.forEach((element) => {
-      const url = element;
-      const segments = url.split("/").filter((segment) => segment !== "");
-
-      if (segments.length > 0) {
-        const lastSegment = segments[segments.length - 1];
-        updatedData.push(lastSegment);
-      }
-    });
-    return updatedData;
-  };
-
-  const getCharactersForEpisode = async (array) => {
-    try {
-      const response = await CharacterMultiple(array);
-      setProcessedData(response);
-    } catch (error) {
-      enqueueSnackbar(error + " - Codigo 404 !", {
-        variant: "error",
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (Array.isArray(avatars)) {
-        const updatedProcessedData = processArray(avatars);
-        setProcessedData(updatedProcessedData);
-        getCharactersForEpisode(updatedProcessedData); // Llamar getEpisodes cuando procesado
-    } else {
-      console.error("avatars no es un array válido o está vacío");
-    }
-  }, [avatars]);
-
+export default function EpisodeAvatars({ listCharacters }) {
   return (
     <>
-      <AvatarGroup total={processedData.length}>
-        {processedData.map((data, index) => (
-          <Avatar key={index} alt={data.name} src={data.image} />
-        ))}
-      </AvatarGroup>
+      <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 4 }}>
+          <ListItemText primary="Participating characters" />
+          <AvatarGroup total={listCharacters.length}>
+            {listCharacters.map((character, index) => (
+              <Avatar key={index} alt={character.name} src={character.image} />
+            ))}
+          </AvatarGroup>
+        </ListItemButton>
+      </List>
     </>
   );
 }

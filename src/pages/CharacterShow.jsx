@@ -6,7 +6,6 @@ import { enqueueSnackbar } from "notistack";
 import { NavbarContext } from "../context/NavbarContext";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AvatarImg from "../components/AvatarImg";
-import { useNavigate } from 'react-router-dom';
 import CircleLoading from "../components/CircleLoading";
 import Characteristics from "../components/navbar/Characteristics";
 import NotFound from "./NotFound";
@@ -43,7 +42,6 @@ export default function CharacterShow() {
 
   useEffect(() => {
     getDataShow(id);
-    console.log(myPage); // Verificar el valor de myPage al entrar en CharacterShow
   }, [myPage]);
 
   const getDataShow = async (id) => {

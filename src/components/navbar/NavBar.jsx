@@ -45,7 +45,7 @@ export default function NavBar({ navArrayLinks }) {
           >
             <MenuIcon></MenuIcon>
           </IconButton>
-          <Box sx={{ ...MobileHide }}>
+          <Box >
           <Typography variant="h6" sx={{ flexGrow: "1" }}>
             {pageTitle}
           </Typography>
