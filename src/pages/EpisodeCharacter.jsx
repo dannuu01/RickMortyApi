@@ -15,13 +15,22 @@ import CharacterMultiple from "../api/CharacterMultiple";
 import CircleLoading from "../components/CircleLoading";
 import Box from '@mui/material/Box';
 
+const colorActive = {
+  '& .MuiListItemText-primary': {
+    color: 'orange', // Estilo para el texto primario
+    // Otros estilos para el texto primario
+  },
+  '& .MuiListItemText-secondary': {
+    color: 'orange', // Estilo para el texto secundario
+    // Otros estilos para el texto secundario
+  },
+}
 export default function EpisodeCharacter({ urlEpisode }) {
   const [listEpisode, setListEpisode] = useState([]);
   const [isOpenArray, setIsOpenArray] = useState([]);
   const [EpisodeforCharacterID] = useState([]);
   const [primerAperturaArray, setPrimerAperturaArray] = useState([]);
   const [arrayDeComponentes, setArrayDeComponentes] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const processArray = (array) => {
     const updatedData = [];
@@ -113,10 +122,20 @@ export default function EpisodeCharacter({ urlEpisode }) {
         <Fragment key={index}>
           <ListItemButton onClick={() => toggleCollapse(index)}>
             <ListItemIcon>
-              <LiveTvIcon />
+              <LiveTvIcon   sx={{
+                color: isOpenArray[index] ? 'orange'  : null, 
+              }} />
             </ListItemIcon>
-            <ListItemText primary={data.name} secondary={data.air_date} />
-            {isOpenArray[index] ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText
+              sx={{
+                color: isOpenArray[index] ? colorActive  : null, 
+              }}
+              primary={data.name}
+              secondary={data.air_date}
+            />
+            {isOpenArray[index] ? <ExpandLess  sx={{
+                color: isOpenArray[index] ? 'orange'  : null, 
+              }} /> : <ExpandMore />}
           </ListItemButton>
 
           <Collapse in={isOpenArray[index]} timeout="auto" unmountOnExit>
